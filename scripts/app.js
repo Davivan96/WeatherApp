@@ -4,6 +4,9 @@ const details = document.querySelector(".details");
 const time = document.querySelector("img.time");
 const icon = document.querySelector(".icon img");
 const input = document.querySelector(".form-control");
+const body = document.querySelector("body");
+const h1 = document.querySelector('.heading-color');
+const label = document.querySelector('.label-text');
 
 
 
@@ -12,7 +15,6 @@ const input = document.querySelector(".form-control");
 const updateUI = (data) => {
   const cityDets = data.cityGet;
   const cityWeather = data.weather;
-  // const { cityDets, cityWeather } = data;
   console.log(cityDets);
   console.log(cityWeather);
   details.innerHTML = `
@@ -31,6 +33,20 @@ const updateUI = (data) => {
   let srcImagenes = cityWeather.IsDayTime ? './img/day.svg' : './img/night.svg';
   time.setAttribute('src', srcImagenes);
 
+  //Funcionalidad para agregar background y estilos de texto
+  let imagenDiaImportada = body.style.backgroundImage = "url('/img/dayback.png')";
+  let imagenNocheImportada = body.style.backgroundImage = "url('/img/night.jpg')";
+  let bodyBackground = cityWeather.IsDayTime ? imagenDiaImportada : imagenNocheImportada;
+  body.style.setProperty("background-image", bodyBackground);
+
+
+  //Cambiar color de H1 e Label dependiendo del horario
+  let textoNoche = h1.style.color = "#FFFFFF";
+  let textoDia = h1.style.color = "#000000";
+  let labelTextNight = label.style.color = "#c1bed1";
+  let labelTextDay = label.style.color = "000000";
+  let headingFont = cityWeather.IsDayTime ? (textoDia, labelTextDay) : (textoNoche, labelTextNight);
+  h1.style.setProperty("color", headingFont);
 
   //Se remueve el d-none si está presente
   card.classList.contains('d-none') ? card.classList.remove('d-none') : "No tiene esa clase";
